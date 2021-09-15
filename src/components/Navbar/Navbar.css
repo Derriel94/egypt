@@ -1,0 +1,10 @@
+.Navbar-container {
+	display: flex;
+	align-items: flex-start;
+	flex-wrap:  nowrap;
+	height:  150px;
+}
+
+.Nav-link {
+	width:  40%;
+}
