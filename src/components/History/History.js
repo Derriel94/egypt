@@ -1,7 +1,6 @@
-import React from 'react'
 
-export default class History extends React.Component {
-	render() {
+
+function History() {
 		return (
 			<div>
 				<h1>History Page</h1>
@@ -11,5 +10,6 @@ export default class History extends React.Component {
 				   </p>
 			</div>
 		)
-	}
 }
+
+export default History;

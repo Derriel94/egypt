@@ -12,23 +12,27 @@ import Trivia from '../Trivia/Trivia';
 
 const App = () => {
     return (
-      <BrowserRouter >
+      <BrowserRouter>
         <div className="App">
         <div className="header">
-          <NavLink to="/ "><h2>EGYPT</h2></NavLink>
-          <h2>Everything Egyption</h2>
+          <NavLink to="/"><h2>EGYPT</h2></NavLink>
+          <h2>Everything Egyptian</h2>
           <NavLink to="/register">Register/Login</NavLink>
-        </div>
-          <Navbar />
+ 
+          </div>
           <div className="Page-Content">
+          <Navbar />
           <Switch>
-            <Route path="/ " component={Home} exact/>
-            <Route path="/history" component={History} exact/> 
-            <Route path="/articles" component={ArticleList} exact/>
-            <Route path="/gallery" component={Gallery} exact/>
-            <Route path="/trivia" component={Trivia} exact/>
+            <Route path="/" component={Home} exact/>
+            <Route path="/history" component={History} /> 
+            <Route path="/articles" component={ArticleList} />
+            <Route path="/gallery" component={Gallery} />
+            <Route path="/trivia" component={Trivia} />
           </Switch>
           </div>
+
+        <h1>  </h1>
+
         </div>
       </BrowserRouter>
     );
