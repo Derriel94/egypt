@@ -67,22 +67,47 @@ function Home() {
 	const [usernameReg, setUserNameReg] = useState("");
 	const [passwordReg, setpasswordReg] = useState("");
 
+	const [userNameLogin, setUserNameLogin] = useState("");
+	const [passwordLogin, setPasswordLogin] = useState("");
+
+	const [loginStatus, setLoginStatus] = useState("");
+
+
+
 	const register = () => {
 		Axios.post('http://localhost:3001/register', {
 			username: usernameReg,
 			password: passwordReg,
 		}).then((response) => {
 			console.log(response);
-		})
+		});
+	};
+
+	const login = () => {
+		Axios.post('http://localhost:3001/login', {
+			username: userNameLogin,
+			password: passwordLogin,
+		}).then((response)=> {
+
+			if (response.data.message) {
+				setLoginStatus(response.data.message);
+			} else {
+				setLoginStatus(response.data[0].username);
+			}
+		});
 	}
 		
 	const userNameInputHandler = (e) => {
 		setUserNameReg(e.target.value);
-	}
+	};
+
+	const loginHandler = (e) => {
+		setUserNameLogin(e.target.value);
+	};
 
 		return (
 			<HomeDiv>
-				<h1>Welcome To Everything Egyptian!</h1>
+				<h1>Welcome To Everything Egyptian {loginStatus} !</h1>
 				<ContentSideBarDiv>
 					<MainContentDiv>
 {/*					<img src={egyptianFlag} alt="egyptianFlag" />
@@ -107,10 +132,19 @@ function Home() {
                   <div className="login">
                   <h1>Login</h1>
                   <label>Username</label>
-                  <input type="text" />
+                  <input type="text" 
+                  		placeholder="Username..."
+                  		onChange={loginHandler}
+                  		/>
                   <label>Password</label>
-                  <input type="text" />
- 				  <button>Login</button>
+                  <input type="text" 
+                  		placeholder="Password..."
+                  		onChange={(e) => {
+                  			setPasswordLogin(e.target.value);
+                  		}}
+                  		/>
+ 				  <button onClick={login}>Login</button>
+ 				  <h1>{loginStatus}</h1>
  				  </div>
 					</MainContentDiv>
 					<SideContentDiv>

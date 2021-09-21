@@ -35,6 +35,28 @@ app.post('/register', (req, res)=> {
 	);
 });
 
+app.post('/login', (req, res)=> {
+	const username = req.body.username;
+	const password = req.body.password;
+
+	db.query(
+		"SELECT * FROM users WHERE username = ? AND password = ?",
+		[username, password],
+		(err, result) => {
+			if(err) {
+			  res.send({err: err})
+			}	
+			if (result.length > 0) {
+				//check wether result has a length of greater then zero, I think we have to do this becuase the result is a //or object that can exsist w/o being populated 
+				res.send(result);
+			} else {
+				res.send({ message: "Wrong username/password combination!"});
+			}
+		}
+	);
+
+});
+
 app.listen(3001, () => {
 	console.log(`Server is Running`);
 });
