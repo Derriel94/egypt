@@ -3,6 +3,8 @@
 const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
+//Below is the component that will help hash the passwords
+const bcrypt = require('bcrypt');
 
 const app = express();
 
