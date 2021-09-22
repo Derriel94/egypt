@@ -1,20 +1,8 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import Axios from 'axios'; // This allows for easy http request calls npm install axios
 import styled from 'styled-components';
 import egyptianFlag from './egyptianFlag.png';
 import './Home.css';
-
-// REGISTRATION LOGIN SYSTEM PRACTICE
-
-
-
-
-
-
-
-
-
-
 
 
 // STYLED COMPONENTS
@@ -72,7 +60,7 @@ function Home() {
 
 	const [loginStatus, setLoginStatus] = useState("");
 
-
+	Axios.defaults.withCredentials = true;
 
 	const register = () => {
 		Axios.post('http://localhost:3001/register', {
@@ -104,6 +92,14 @@ function Home() {
 	const loginHandler = (e) => {
 		setUserNameLogin(e.target.value);
 	};
+
+	useEffect(()=> {
+		Axios.get("http://localhost:3001/login").then((response) => {
+			if (response.data.loggedIn == true) {
+				setLoginStatus(response.data.user[0].username);
+			}
+		});
+	}, [])
 
 		return (
 			<HomeDiv>
