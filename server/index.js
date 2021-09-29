@@ -42,9 +42,32 @@ const db = mysql.createConnection({
 	database: "loginsystem",
 });
 
+app.get('/register', (req, res)=> {
+	const username = req.body.username;
+
+		db.query(
+		"SELECT EXISTS(SELECT * FROM users WHERE username = ?)",
+		username,
+		(err, result) => {
+			if (err) {
+				res.send({ err: err });
+				
+			} else if (result) {
+				res.send({ message: "Username Already Exists" });
+				
+			}
+			db.end();
+		}
+
+	);
+
+
+});
+
 app.post('/register', (req, res)=> {
 	const username = req.body.username;
 	const password = req.body.password;
+
 
 
 
@@ -65,6 +88,8 @@ app.post('/register', (req, res)=> {
 
 
 });
+
+//This is where the session is assigned?
 
 app.get('/login', (req, res) => {
 	if (req.session.user) {
@@ -93,7 +118,7 @@ app.post('/login', (req, res)=> {
 						console.log(req.session.user);
 						res.send(result);
 					} else {
-						res.send({ message: "wrong/username/password combo"})
+						res.send({ message: "wrong/username/password combo"});
 					}
 				});
 			} else {

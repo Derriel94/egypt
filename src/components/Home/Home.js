@@ -60,14 +60,26 @@ function Home() {
 
 	const [loginStatus, setLoginStatus] = useState("");
 
+	const [userExist, setUserExist] = useState("");
+
 	Axios.defaults.withCredentials = true;
 
 	const register = () => {
+				Axios.get('http://localhost:3001/register', {
+			username: usernameReg,
+			password: passwordReg,
+		}).then((response) => {
+			if(response.data.message) {
+				setUserExist(response.data.message);
+			}
+		});
 		Axios.post('http://localhost:3001/register', {
 			username: usernameReg,
 			password: passwordReg,
 		}).then((response) => {
-			console.log(response);
+			if(response.data.message) {
+				setUserExist(response.data.message);
+			}
 		});
 	};
 
@@ -124,6 +136,7 @@ function Home() {
                   		setpasswordReg(e.target.value);
                   	}}/>
                   	<button onClick={register}>Register</button>
+                  		{userExist}
                   </div>
                   <div className="login">
                   <h1>Login</h1>
